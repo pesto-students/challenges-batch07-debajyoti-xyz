@@ -1,15 +1,13 @@
 const allSettled = async (iterable) => {
-  /* eslint-disable no-await-in-loop */
-  const results = [];
+  const wrappedPromises = [];
   for (const item of iterable) {
-    try {
-      results.push(await item);
-    } catch (error) {
-      results.push(error);
-    }
+    wrappedPromises.push(
+      Promise.resolve(item)
+        .then((result) => ({ status: 'fulfilled', value: result }))
+        .catch((error) => ({ status: 'rejected', reason: error })),
+    );
   }
-  /* eslint-enable no-await-in-loop */
-  return results;
+  return Promise.all(wrappedPromises);
 };
 
 export { allSettled };
