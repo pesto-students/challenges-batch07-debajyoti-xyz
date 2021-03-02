@@ -9,6 +9,7 @@ const allSettled = async (iterable) => {
     }
   }
   /* eslint-enable no-await-in-loop */
+  return results;
 };
 
 export { allSettled };
