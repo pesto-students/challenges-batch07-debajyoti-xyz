@@ -16,9 +16,8 @@ class Cycled {
   }
 
   set index(n) {
-    if (n >= 0 && n < this.length) {
-      this._index = n;
-    }
+    const arrayLength = this.length;
+    this._index = (arrayLength + (n % arrayLength)) % arrayLength;
   }
 
   * [Symbol.iterator]() {
@@ -46,7 +45,7 @@ class Cycled {
    */
   step(n) {
     const arrayLength = this.length;
-    this._index = (arrayLength + (this._index + n)) % arrayLength;
+    this._index = (arrayLength + ((this._index + n) % arrayLength)) % arrayLength;
     return this._array[this._index];
   }
 
